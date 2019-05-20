@@ -1,10 +1,5 @@
+import scipy
+
 print("Test")
 print("Test")
-print("Test")
-print("Test")
-print("Test")
-print("Test")
-print("Test")
-print("Test")
-print("Test")
-print("Test01")
+
