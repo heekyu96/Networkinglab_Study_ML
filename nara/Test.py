@@ -15,8 +15,12 @@ register(
 env = gym.make('FrozenLake-v3')
 
 Q = np.zeros([env.observation_space.n, env.action_space.n])
-dis = 0.99
-num_episodes = 5000
+print("First Q-Table Values")
+print(Q)
+# Q = np.random.normal(loc=0.1, scale=1, size=(env.observation_space.n, env.action_space.n))
+dis = 0.95
+r = 0.6
+num_episodes = 10000
 rList = []
 
 for i in range(num_episodes):
@@ -24,24 +28,26 @@ for i in range(num_episodes):
     rAll = 0
     done = False
 
-    e = 1./((i//100)+1) # / -> // 연산자로 바꿈
+    # / -> // 연산자로 바꿈
+    e = 1. / ((i // 100) + 1)
 
-    while not done :
-        if np.random.rand(1) < e :
+    while not done:
+        if np.random.rand(1) < e:
             action = env.action_space.sample()
-        else :
+        else:
             action = np.argmax(Q[state, :])
 
         new_state, reward, done, _ = env.step(action)
-        Q[state, action] = reward + dis * np.max(Q[new_state, :])
+        # Q[state, action] = reward + dis * np.max(Q[new_state, :])
+        Q[state, action] += r * (reward + dis * np.max(Q[new_state, :]) - Q[state, action])
         rAll += reward
         state = new_state
 
     rList.append(rAll)
 
-print("Success rate : "+str(sum(rList) / num_episodes))
+print("Success rate : " + str(sum(rList) / num_episodes))
 print("Final Q-Table Values")
 print(Q)
 
-plt.bar(range(len(rList)), rList, color="blue")
+plt.bar(range(len(rList)), rList, color="black")
 plt.show()
