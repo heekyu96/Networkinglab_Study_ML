@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import tensorflow as tf
 import gym
 import numpy as np
@@ -60,7 +59,7 @@ with tf.Session() as sess:
             count+=1
 
             # 현재 상태(s)로 Q값을 예측
-            s_t = np.reshape(s,[1,INPUT])
+            s_t = np.reshape(s, [1, INPUT])
             Q = sess.run(Q_pre, feed_dict={x:s_t})
 
             # e-greedy 를 사용하여 action값 구함
@@ -81,14 +80,14 @@ with tf.Session() as sess:
             rall += r
             s = s1
         # 10 번의 스탭마다 미니배치로 학습
-        if step % 10 == 1 :
+        if step % 10 == 1:
 
             for i in range(MINIBATCH):
 
                 # 메모리에서 사용할 리플레이를 랜덤하게 가져옴
                 for sample in ran.sample(REPLAY_MEMORY, REPLAY):
 
-                    s_t_r, a_r, r_r, s1_r ,d_r = sample
+                    s_t_r, a_r, r_r, s1_r, d_r = sample
 
                     Q = sess.run(Q_pre, feed_dict={x: s_t_r})
                     # DQN 알고리즘으로 학습
@@ -105,3 +104,5 @@ with tf.Session() as sess:
 
         rList.append(rall)
         print("Episode {} finished after {} timesteps with r={}. Running score: {}".format(step, count, rall, np.mean(rList)))
+
+        #출처: https://passi0n.tistory.com/84?category=748105
