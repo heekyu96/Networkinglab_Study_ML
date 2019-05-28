@@ -103,9 +103,5 @@ with tf.Session() as sess:
 
                     sess.run(train, feed_dict={x: s_t_r, y: Q})
 
-
-
         rList.append(rall)
         print("Episode {} finished after {} timesteps with r={}. Running score: {}".format(step, count, rall, np.mean(rList)))
-
-
