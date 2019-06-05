@@ -129,4 +129,4 @@ env = env.unwrapped
 dqn = DQN(env.observation_space.n, env.action_space.n)
 dqn.run(3000)
 
-#출처: https://github.com/YZK-yzk/DQN_FrozenLake_v0/blob/master/DQN_FrozenLake-v0.py
+#출처: https://github.com/YZK-yzk/DQN_FrozenLake_v0/blob/master/DQN_FrozenLake-v0
